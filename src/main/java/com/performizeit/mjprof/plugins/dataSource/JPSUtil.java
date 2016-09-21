@@ -3,7 +3,6 @@ package com.performizeit.mjprof.plugins.dataSource;
 import sun.jvmstat.monitor.*;
 
 import java.net.URISyntaxException;
-import java.util.Iterator;
 import java.util.Set;
 
 /**

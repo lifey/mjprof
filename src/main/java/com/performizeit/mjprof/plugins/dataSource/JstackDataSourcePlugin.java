@@ -1,20 +1,18 @@
 package com.performizeit.mjprof.plugins.dataSource;
 
-import com.performizeit.mjprof.plugin.types.DataSource;
-import com.performizeit.mjprof.api.Plugin;
 import com.performizeit.mjprof.api.Param;
+import com.performizeit.mjprof.api.Plugin;
 import com.performizeit.mjprof.parser.ThreadDump;
+import com.performizeit.mjprof.plugin.types.DataSource;
 import com.performizeit.plumbing.GeneratorHandler;
-import com.sun.tools.attach.VirtualMachine;
 import com.sun.tools.attach.AttachNotSupportedException;
-import sun.jvmstat.monitor.*;
+import com.sun.tools.attach.VirtualMachine;
 import sun.tools.attach.HotSpotVirtualMachine;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 
@@ -28,7 +26,7 @@ public class JstackDataSourcePlugin implements DataSource, GeneratorHandler<Thre
   private int iter = 0;
   private final int sleep;
   private long lastIterTime = 0;
-  int pid;
+  private int pid;
 
   public JstackDataSourcePlugin(String pidStr, int count, int sleep) {
     try {
@@ -91,7 +89,7 @@ public class JstackDataSourcePlugin implements DataSource, GeneratorHandler<Thre
       //   long start = System.currentTimeMillis();
       //     String str = runjStackCommandLine();
       String[] params = {"-;l"};
-      String str = runThreadDump((new Integer(pid)).toString(), params);
+      String str = runThreadDump(Integer.toString(pid), params);
       // System.err.println("tm ="+ (System.currentTimeMillis()-start));
       ThreadDump r;
       if (str == null) {
@@ -188,10 +186,4 @@ public class JstackDataSourcePlugin implements DataSource, GeneratorHandler<Thre
     }
     return null;
   }
-
-
-  public static void main(String[] args) throws MonitorException, URISyntaxException {
-    System.out.println((JPSUtil.lookupProcessId("My4tApp")));
-  }
-
 }
